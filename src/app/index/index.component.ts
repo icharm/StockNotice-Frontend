@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['../assets/weui.min.css']
+  selector: 'app-index',
+  templateUrl: './index.component.html',
+  styleUrls: ['../../assets/weui.min.css']
 })
-export class AppComponent implements OnInit {
-  avatarUrl = '';
+export class IndexComponent implements OnInit {
+  avatarUrl = 'Hello Angular';
   userName = 'My New Name';
 
   ngOnInit() {

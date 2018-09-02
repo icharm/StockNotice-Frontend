@@ -1,0 +1,12 @@
+.stock-data-left{
+  text-align: right;
+  margin-top: 38px;
+}
+.stock-data-center{
+  text-align: center;
+  font-size: 50px;
+}
+.stock-data-right{
+  text-align: left;
+  margin-top: 38px;
+}
