@@ -3,22 +3,21 @@
     <p class="page__desc" style="text-align: center">添加预警规则</p>
   </div>
   <div class="page__bd page__bd_spacing" >
-    <div id="stock-data" class="weui-flex weui-cell-hidden" >
+    <div *ngIf="stockPrice" id="stock-data" class="weui-flex weui-cell-hidden" >
       <div class="weui-flex__item"><div class="stock-data-left" >RMB</div></div>
-      <div class="weui-flex__item"><div class="stock-data-center" >18.25</div></div>
-      <div class="weui-flex__item"><div class="stock-data-right" >-2.35%</div></div>
+      <div class="weui-flex__item"><div class="stock-data-center" >{{stockPrice}}</div></div>
+      <div class="weui-flex__item"><div class="stock-data-right" >{{range}}%</div></div>
     </div>
     <form id="add">
       <div class="weui-cells weui-cells_form">
-        <input name="openid" class="weui-input" type="text" style="display:none;" value="{{ $user['id'] }}" />
         <div class="weui-cell">
           <div class="weui-cell__hd"><label class="weui-label">股票代码</label></div>
           <div class="weui-cell__bd">
-            <input name="code" class="weui-input" type="number" pattern="[0-9]*" />
+            <input #stockCodeBox name="code" class="weui-input" type="number" pattern="[0-9]*" (keyup)="stockCodeChange(stockCodeBox.value)" />
           </div>
         </div>
         <div class="weui-cell">
-          <div class="weui-cell__hd"><label for="" class="weui-label">股票名称</label></div>
+          <div class="weui-cell__hd"><label class="weui-label">股票名称</label></div>
           <div class="weui-cell__bd">
             <input name="name" class="weui-input" type="text" value="" placeholder="自动获取" disabled="disabled"/>
           </div>
@@ -47,7 +46,7 @@
             <label class="weui-label">涨幅预警</label>
           </div>
           <div class="weui-cell__bd">
-            <div id="rise-item" class="weui-cell weui-cell_vcode weui-cell-hidden">
+            <div *ngIf="riseCheck" id="rise-item" class="weui-cell weui-cell_vcode">
               <div class="weui-cell__hd" style="width:50%;">
                 <input name="rise-price" class="weui-input" type="number" placeholder="预警价格"/>
               </div>
@@ -57,7 +56,7 @@
             </div>
           </div>
           <div class="weui-cell__ft">
-            <input name="rise-check" class="weui-switch" type="checkbox" onchange="changeRise(this)"/>
+            <input name="rise-check" class="weui-switch" type="checkbox" (click)="riseCheckClick()"/>
           </div>
         </div>
 
@@ -66,7 +65,7 @@
             <label class="weui-label">跌幅预警</label>
           </div>
           <div class="weui-cell__bd">
-            <div id="drop-item" class="weui-cell weui-cell_vcode weui-cell-hidden">
+            <div *ngIf="dropCheck" id="drop-item" class="weui-cell weui-cell_vcode">
               <div class="weui-cell__hd" style="width:50%;">
                 <input name="drop-price" class="weui-input" type="number" placeholder="预警价格"/>
               </div>
@@ -76,7 +75,7 @@
             </div>
           </div>
           <div class="weui-cell__ft">
-            <input name="drop-check" class="weui-switch" type="checkbox" onchange="changeDrop(this)"/>
+            <input name="drop-check" class="weui-switch" type="checkbox" (click)="dropCheckClick()"/>
           </div>
         </div>
       </div>

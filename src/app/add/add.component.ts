@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {AppComponent} from '../app.component';
+import {AppModule} from '../app.module';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-add',
@@ -9,17 +12,28 @@ import {Component, OnInit} from '@angular/core';
   ]
 })
 export class AddComponent implements OnInit {
+  riseCheck = false;
+  dropCheck = false;
+  stockPrice = null; // 股价
+  range = null;      // 涨跌幅
 
   ngOnInit() {
     // 请求微信授权
     console.log('add rule.');
   }
 
-  onClick(action): void {
-    if (action === 'add') {
-      console.log('add');
-    } else if (action === 'list') {
-      console.log('list');
+  riseCheckClick(): void {
+    this.riseCheck = !this.riseCheck;
+  }
+
+  dropCheckClick(): void {
+    this.dropCheck = !this.dropCheck;
+  }
+
+  stockCodeChange(code): void {
+    if ( code.length !== 6 ) {
+      return;
     }
+    // query server api for stock info
   }
 }
