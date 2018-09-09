@@ -1,7 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {AppComponent} from '../app.component';
-import {AppModule} from '../app.module';
-import {HttpClient} from '@angular/common/http';
+import {ApiService} from '../api.service';
+
+interface StockData {
+  code: string;
+  name: string;
+  openPrice: number;
+  closePrice: number;
+  nowPrice: number;
+  maxPrice: number;
+  minPrice: number;
+  range: number;
+}
 
 @Component({
   selector: 'app-add',
@@ -11,11 +20,14 @@ import {HttpClient} from '@angular/common/http';
     './add.component.css'
   ]
 })
+
 export class AddComponent implements OnInit {
   riseCheck = false;
   dropCheck = false;
-  stockPrice = null; // 股价
-  range = null;      // 涨跌幅
+  stockData = null;
+
+  constructor(private api: ApiService) {
+  }
 
   ngOnInit() {
     // 请求微信授权
@@ -31,9 +43,12 @@ export class AddComponent implements OnInit {
   }
 
   stockCodeChange(code): void {
-    if ( code.length !== 6 ) {
+    if (code.length !== 6) {
       return;
     }
-    // query server api for stock info
+    const vm = this;
+    this.api.get(ApiService.APIS.StockData, {}, res => {
+      vm.stockData = res.data;
+    });
   }
 }

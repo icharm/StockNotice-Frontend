@@ -3,10 +3,10 @@
     <p class="page__desc" style="text-align: center">添加预警规则</p>
   </div>
   <div class="page__bd page__bd_spacing" >
-    <div *ngIf="stockPrice" id="stock-data" class="weui-flex weui-cell-hidden" >
+    <div *ngIf="stockData" id="stock-data" class="weui-flex weui-cell-hidden" >
       <div class="weui-flex__item"><div class="stock-data-left" >RMB</div></div>
-      <div class="weui-flex__item"><div class="stock-data-center" >{{stockPrice}}</div></div>
-      <div class="weui-flex__item"><div class="stock-data-right" >{{range}}%</div></div>
+      <div class="weui-flex__item"><div class="stock-data-center" >{{stockData.nowPrice}}</div></div>
+      <div class="weui-flex__item"><div class="stock-data-right" >{{stockData.range}}%</div></div>
     </div>
     <form id="add">
       <div class="weui-cells weui-cells_form">

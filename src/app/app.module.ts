@@ -6,6 +6,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import {AddComponent} from './add/add.component';
 import {HttpClientModule} from '@angular/common/http';
 import {IndexComponent} from './index/index.component';
+import {ApiService} from './api.service';
 
 @NgModule({
   declarations: [
@@ -18,9 +19,7 @@ import {IndexComponent} from './index/index.component';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  public apiRoot = 'http://localhost';
-}
+export class AppModule {}
