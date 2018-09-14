@@ -8,18 +8,18 @@
       <div class="weui-flex__item"><div class="stock-data-center" >{{stockData.nowPrice}}</div></div>
       <div class="weui-flex__item"><div class="stock-data-right" >{{stockData.range}}%</div></div>
     </div>
-    <form id="add">
+    <form id="add" [formGroup]="rule" (ngSubmit)="onSubmit()">
       <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
           <div class="weui-cell__hd"><label class="weui-label">股票代码</label></div>
           <div class="weui-cell__bd">
-            <input #stockCodeBox name="code" class="weui-input" type="number" pattern="[0-9]*" (keyup)="stockCodeChange(stockCodeBox.value)" />
+            <input #stockCodeBox formControlName="code" class="weui-input" [value]="stockCodeBox.value.toString()" (keyup)="stockCodeChange(stockCodeBox.value)" />
           </div>
         </div>
         <div class="weui-cell">
           <div class="weui-cell__hd"><label class="weui-label">股票名称</label></div>
           <div class="weui-cell__bd">
-            <input name="name" class="weui-input" type="text" value="" placeholder="自动获取" disabled="disabled"/>
+            <input formControlName="name" class="weui-input" type="text" value="{{stockData && stockData.name}}" placeholder="自动获取" disabled="disabled"/>
           </div>
         </div>
         <div class="weui-cell">
@@ -27,7 +27,7 @@
             <label class="weui-label">规则名称</label>
           </div>
           <div class="weui-cell__bd">
-            <input name="notice-name" class="weui-input" type="text" />
+            <input formControlName="ruleName" class="weui-input" type="text" />
           </div>
         </div>
         <div class="weui-cell weui-cell_vcode">
@@ -35,10 +35,10 @@
             <label class="weui-label">基准价格</label>
           </div>
           <div class="weui-cell__bd">
-            <input name="base-price" class="weui-input" type="text" />
+            <input formControlName="basePrice" class="weui-input" type="text" value="{{basePrice}}"/>
           </div>
           <div class="weui-cell__ft">
-            <a id="button-use-price-now" class="weui-vcode-btn">使用现价</a>
+            <a id="button-use-price-now" class="weui-vcode-btn" (click)="useNowPrice()">使用现价</a>
           </div>
         </div>
         <div class="weui-cell weui-cell_vcode weui-cell_switch">
@@ -48,15 +48,15 @@
           <div class="weui-cell__bd">
             <div *ngIf="riseCheck" id="rise-item" class="weui-cell weui-cell_vcode">
               <div class="weui-cell__hd" style="width:50%;">
-                <input name="rise-price" class="weui-input" type="number" placeholder="预警价格"/>
+                <input (keyup)="risePriceKeyUp()" formControlName="risePrice" class="weui-input" type="number" placeholder="预警价格"/>
               </div>
               <div class="weui-cell__bd" style="color: red;">
-                <input name="rise-percent" class="weui-input" type="text" placeholder="涨幅 %" />
+                <input formControlName="risePercent" class="weui-input" type="text" placeholder="涨幅 %" />
               </div>
             </div>
           </div>
           <div class="weui-cell__ft">
-            <input name="rise-check" class="weui-switch" type="checkbox" (click)="riseCheckClick()"/>
+            <input formControlName="riseCheck" class="weui-switch" type="checkbox" (click)="riseCheckClick()"/>
           </div>
         </div>
 
@@ -67,20 +67,20 @@
           <div class="weui-cell__bd">
             <div *ngIf="dropCheck" id="drop-item" class="weui-cell weui-cell_vcode">
               <div class="weui-cell__hd" style="width:50%;">
-                <input name="drop-price" class="weui-input" type="number" placeholder="预警价格"/>
+                <input (keyup)="dropPriceKeyUp()" formControlName="dropPrice" class="weui-input" type="number" placeholder="预警价格"/>
               </div>
               <div class="weui-cell__bd" style="color: green;">
-                <input name="drop-percent" class="weui-input" type="text" placeholder="跌幅 %" />
+                <input formControlName="dropPercent" class="weui-input" type="text" placeholder="跌幅 %" />
               </div>
             </div>
           </div>
           <div class="weui-cell__ft">
-            <input name="drop-check" class="weui-switch" type="checkbox" (click)="dropCheckClick()"/>
+            <input formControlName="dropCheck" class="weui-switch" type="checkbox" (click)="dropCheckClick()"/>
           </div>
         </div>
       </div>
+      <button type="submit" href="javascript:;" class="weui-btn weui-btn_primary" style="margin-top: 14px;">确定</button>
     </form>
-    <a id="submit" href="javascript:;" class="weui-btn weui-btn_primary" style="margin-top: 14px;">确定</a>
   </div>
 
 
@@ -107,14 +107,14 @@
   </div>
   <!--end toast-->
   <!--BEGIN dialog1-->
-  <div class="js_dialog" id="iosDialog1" style="display: none;">
+  <div #dialog class="js_dialog" id="iosDialog1" *ngIf="dialogSwitch">
     <div class="weui-mask"></div>
     <div class="weui-dialog">
-      <div class="weui-dialog__hd"><strong class="weui-dialog__title">标题</strong></div>
-      <div class="weui-dialog__bd">内容</div>
+      <div class="weui-dialog__hd"><strong class="weui-dialog__title">提示</strong></div>
+      <div class="weui-dialog__bd">{{dialogContent}}</div>
       <div class="weui-dialog__ft">
-        <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
-        <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+        <!--<a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>-->
+        <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" (click)="this.dialogSwitch = false;">确定</a>
       </div>
     </div>
   </div>

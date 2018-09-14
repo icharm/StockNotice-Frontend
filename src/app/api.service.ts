@@ -11,7 +11,7 @@ export interface Response {
 export class ApiService {
   static URL_ROOT = 'http://localhost';
   static APIS = {
-    StockData: '/stockData.php',
+    StockData: '/common/stock-data',
   };
 
   constructor(private http: HttpClient) {
