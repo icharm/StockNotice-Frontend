@@ -8,12 +8,15 @@ import {HttpClientModule} from '@angular/common/http';
 import {IndexComponent} from './index/index.component';
 import {ApiService} from './api.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {LoginComponent} from './login/login.component';
+import {GlobalInfo} from './globalinfo';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     AddComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +29,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   entryComponents: [],
   providers: [
     ApiService,
+    GlobalInfo
   ],
   bootstrap: [AppComponent]
 })

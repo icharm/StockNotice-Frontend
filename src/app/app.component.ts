@@ -6,11 +6,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['../assets/weui.min.css']
 })
 export class AppComponent implements OnInit {
-  avatarUrl = '';
-  userName = 'My New Name';
+  user = null;
 
+  constructor() {}
 
-  ngOnInit() {
-    // 请求微信授权
-  }
+  ngOnInit() {}
 }

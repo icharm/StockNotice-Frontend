@@ -9,9 +9,11 @@ export interface Response {
 
 @Injectable()
 export class ApiService {
-  static URL_ROOT = 'http://localhost';
+  static URL_ROOT = 'http://localhost:8080';
   static APIS = {
     StockData: '/common/stock-data',
+    Authentication: '/common/wechat-auth',
+    Login: '/common/login'
   };
 
   constructor(private http: HttpClient) {
@@ -84,4 +86,5 @@ export class ApiService {
         }
       );
   }
+
 }

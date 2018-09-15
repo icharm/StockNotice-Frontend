@@ -1,23 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
+import {GlobalInfo} from '../globalinfo';
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['../../assets/weui.min.css']
 })
-export class IndexComponent implements OnInit {
-  avatarUrl = 'Hello Angular';
-  userName = 'My New Name';
+export class IndexComponent implements OnChanges {
 
-  ngOnInit() {
-    // 请求微信授权
+  constructor(public global: GlobalInfo) {}
+
+  ngOnChanges() {
   }
 
-  // onClick(action): void {
-  //   if (action === 'add') {
-  //     console.log('add');
-  //   } else if (action === 'list') {
-  //     console.log('list');
-  //   }
-  // }
 }
